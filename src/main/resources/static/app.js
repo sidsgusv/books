@@ -34,7 +34,6 @@ function attachEvents() {
 
 
                         let authorId = author.id;
-                    tableBookElRef.innerHTML='';
                         fetch(`http://localhost:8080/authors/${authorId}/books`)
                             .then(response => response.json())
 
@@ -50,6 +49,22 @@ function attachEvents() {
                                 cellElBooks.textContent = `${book.title}`;
                                 rowBookEl.appendChild(cellElBooks);
                                 tableBookElRef.appendChild(rowBookEl);
+
+
+                                let cellElBookDelete=document.createElement('td');
+                                let deleteBookBtn = document.createElement('button');
+                                deleteBookBtn.textContent = 'Delete this book';
+                                cellElBookDelete.appendChild(deleteBookBtn);
+                                rowBookEl.appendChild(cellElBookDelete);
+                                deleteBookBtn.addEventListener('click', () => {
+                                    fetch(`http://localhost:8080/books/${book.id}`, {
+                                        method: 'DELETE'
+                                    })
+                                        .then(response => response.json())
+                                        .then(() => {
+                                            rowBookEl.remove();
+                                        })
+                                })
 
                             }))
 
