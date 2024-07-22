@@ -34,7 +34,6 @@ function attachEvents() {
 
 
                         let authorId = author.id;
-                    tableBookElRef.innerHTML='';
                         fetch(`http://localhost:8080/authors/${authorId}/books`)
                             .then(response => response.json())
 
